@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 import time
+import random
 
 Base_URL = "http://127.0.0.1:8000"
 
@@ -44,7 +45,7 @@ with col2:
 
 if st.button("Get best move!"):
     with st.spinner("Calculating the best move..."):
-        time.sleep(1.5)
+        time.sleep(random.uniform(0.5, 3))
         response = requests.get(
             f"{Base_URL}/cards/",
             params={"h_card": h_card, "p_cards": p_cards}

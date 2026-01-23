@@ -35,7 +35,7 @@ def cards_to_state(h_card, p_cards):
     if ace_count > deductions:
         is_soft = True
 
-    state = (float(player_hand_value), float(h_card), float(is_soft))
+    state = (float(player_hand_value), float(card_values[h_card]), float(is_soft))
 
     return state, double_poss, split_poss
 

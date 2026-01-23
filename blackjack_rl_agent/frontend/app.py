@@ -44,7 +44,7 @@ with col2:
 
 if st.button("Get best move!"):
     with st.spinner("Calculating the best move..."):
-        time.sleep(3)
+        time.sleep(1.5)
         response = requests.get(
             f"{Base_URL}/cards/",
             params={"h_card": h_card, "p_cards": p_cards}
@@ -58,4 +58,7 @@ if st.button("Get best move!"):
                 st.subheader(f"Recommended action: {action}", text_alignment="center")
 
         else:
-            st.error(f"Error: {response.json().get("detail")}")
+            try:
+                st.error(f"Server Error ({response.status_code}): {response.json().get("detail", "Unknown error")}")
+            except:
+                st.error(f"Server Error ({response.status_code}): The server returned an invalid response.")

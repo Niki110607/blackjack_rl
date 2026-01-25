@@ -1,5 +1,5 @@
-from AI.Blackjack_RL_project.environment.deck import Deck
-from AI.Blackjack_RL_project.environment.hand import Hand
+from environment.deck import Deck
+from environment.hand import Hand
 import random
 
 class Blackjack:
@@ -150,8 +150,9 @@ class Blackjack:
     def action_random(self, double_possible, splittable):
         action_space = [0, 1]
         if double_possible:
-            action_space.append(2)
+            for i in range(1):
+                action_space.append(2)
         if splittable:
-            for i in range(2):
+            for i in range(1):
                 action_space.append(3)
         return random.choice(action_space)

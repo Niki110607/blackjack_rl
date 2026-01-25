@@ -1,4 +1,4 @@
-from AI.Blackjack_RL_project.environment.card import Card
+from environment.card import Card
 import random
 
 class Deck:

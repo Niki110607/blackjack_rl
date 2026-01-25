@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from blackjack_rl_agent.api.predict import best_move
+from predict import best_move
 app = FastAPI()
 
 origins = [

@@ -1,5 +1,5 @@
 import torch
-from blackjack_rl_agent.model.dqn_agent import NeuralNetwork
+from model.dqn_agent import NeuralNetwork
 
 def load_model():
     model = NeuralNetwork()

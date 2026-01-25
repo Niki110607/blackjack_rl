@@ -1,6 +1,6 @@
 /training/__init__.py
 /environment/__init__.py
 /blackjack_rl_agent/__init__.py
-/blackjack_rl_agent/model/__init__.py
 /blackjack_rl_agent/frontend/__init__.py
 /blackjack_rl_agent/api/__init__.py
+/blackjack_rl_agent/api/model/__init__.py

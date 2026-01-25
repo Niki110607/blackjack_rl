@@ -3,7 +3,7 @@ from model.dqn_agent import NeuralNetwork
 
 def load_model():
     model = NeuralNetwork()
-    model.load_state_dict(torch.load("/Users/niklas/Python/AI/Blackjack_RL_project/blackjack_rl_agent/model/blackjack_model_weights.pth"))
+    model.load_state_dict(torch.load("model/blackjack_model_weights.pth"))
     return model
 
 def cards_to_state(h_card, p_cards):

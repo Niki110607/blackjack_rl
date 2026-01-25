@@ -1,6 +1,20 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 from blackjack_rl_agent.api.predict import best_move
 app = FastAPI()
+
+origins = [
+    "http://localhost:8501",
+    "https://blackjack-rl-agent.streamlit.app"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/cards/")
 def get_cards(

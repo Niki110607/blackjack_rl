@@ -3,7 +3,7 @@ import requests
 import time
 import random
 
-Base_URL = "http://127.0.0.1:8000"
+Base_URL = "https://blackjack-rl.onrender.com"
 
 if "selectboxes" not in st.session_state:
     st.session_state.selectboxes = 2

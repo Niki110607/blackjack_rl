@@ -153,6 +153,6 @@ class Blackjack:
             for i in range(1):
                 action_space.append(2)
         if splittable:
-            for i in range(1):
+            for i in range(2):
                 action_space.append(3)
         return random.choice(action_space)

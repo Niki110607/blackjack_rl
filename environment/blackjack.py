@@ -128,6 +128,9 @@ class Blackjack:
         return step_result
 
     def check_Bj(self):
+        """
+        Checks if the player has a blackjack and calculates the reward.
+        """
         reward = 0
         hand_over = False
         self.player_hand.process()

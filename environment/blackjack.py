@@ -151,7 +151,6 @@ class Blackjack:
                     reward = 0
                 else:
                     reward = 1.0
-
         return reward, hand_over
 
     def hand_over(self) -> float:

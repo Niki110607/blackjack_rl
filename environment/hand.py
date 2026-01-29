@@ -25,6 +25,7 @@ class Hand:
         self.ace_count = 0
         self.deductions = 0
         self.double_possible = False
+        self.splitted = False
 
         for card in self.hand:
             self.value += card.value

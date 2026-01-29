@@ -11,7 +11,7 @@ class Blackjack:
     def next_hand(self) -> tuple:
         """
         Creates a new hand or plays the next hand if the original hand was split by using the init_hand() function.
-        :return: a state-tuple containing the player's hand value, the house's card, if you have an ace and if the hand is splittable.
+        :return: a state-tuple containing the player's hand value, the dealer's card, if you have an ace and if the hand is splittable.
         """
         if len(self.queue) > 0:
             hand = self.queue.pop()
@@ -19,8 +19,8 @@ class Blackjack:
 
         else:
             self.init_hand()
-
-        return self.state
+        reward, hand_over = self.check_Bj()
+        return self.state, reward, hand_over
 
 
     def init_hand(self, hand=None) -> None:
@@ -31,7 +31,7 @@ class Blackjack:
         """
         if hand == None:
             self.player_hand: Hand = Hand()
-            self.house_hand: Hand = Hand()
+            self.dealer_hand: Hand = Hand()
 
             self.deck.reset()
             self.deck.shuffle()
@@ -41,13 +41,14 @@ class Blackjack:
                 self.player_hand.add_card(card)
 
                 card = self.deck.draw_card()
-                self.house_hand.add_card(card)
+                self.dealer_hand.add_card(card)
 
         else:
             self.player_hand = hand
 
         self.player_hand.process()
-        self.state = (self.player_hand.value, self.house_hand.hand[0].value, self.player_hand.soft, self.player_hand.double_possible, self.player_hand.splittable)
+
+        self.state = (self.player_hand.value, self.dealer_hand.hand[0].value, self.player_hand.soft, self.player_hand.double_possible, self.player_hand.splittable)
 
 
     def step(self, action: int) -> tuple:
@@ -106,24 +107,52 @@ class Blackjack:
                 hand1.process()
                 hand2.process()
 
-                hand1.reward = 1
-                hand2.reward = 1
+                hand1.splitted = True
+                hand2.splitted = True
 
                 self.queue.append(hand2)
                 self.queue.append(hand1)
 
-                state1 = (hand1.value, self.house_hand.hand[0].value, hand1.soft, hand1.double_possible, hand1.splittable)
-                state2 = (hand2.value, self.house_hand.hand[0].value, hand2.soft, hand2.double_possible, hand2.splittable)
+                state1 = (hand1.value, self.dealer_hand.hand[0].value, hand1.soft, hand1.double_possible, hand1.splittable)
+                state2 = (hand2.value, self.dealer_hand.hand[0].value, hand2.soft, hand2.double_possible, hand2.splittable)
 
                 states = (state1, state2)
 
                 return (states, 0, False)
 
-        self.state = (self.player_hand.value, self.house_hand.hand[0].value, self.player_hand.soft, self.player_hand.double_possible, self.player_hand.splittable)
+        if not hand_over:
+            reward, hand_over = self.check_Bj()
+        self.state = (self.player_hand.value, self.dealer_hand.hand[0].value, self.player_hand.soft, self.player_hand.double_possible, self.player_hand.splittable)
         step_result = (self.state, reward, hand_over)
 
         return step_result
 
+    def check_Bj(self):
+        reward = 0
+        hand_over = False
+        self.player_hand.process()
+
+        if self.player_hand.value == 21:
+            hand_over = True
+            self.dealer_hand.finish(self.deck)
+            dealer_natural = (self.dealer_hand.value == 21 and len(self.dealer_hand.hand) == 2)
+            player_natural = ((self.player_hand.value == 21 and len(self.player_hand.hand) == 2) and not self.player_hand.splitted)
+
+            if player_natural:
+                if dealer_natural:
+                    reward = 0
+                else:
+                    reward = 1.5
+
+            else:
+                if dealer_natural:
+                    reward = -1.0
+                elif self.dealer_hand.value == 21:
+                    reward = 0
+                else:
+                    reward = 1.0
+
+        return reward, hand_over
 
     def hand_over(self) -> float:
         """
@@ -131,17 +160,17 @@ class Blackjack:
         :return: The reward is a number that decides how "good" the player played the game. It normally is either -1 for a loss, 0 for a draw and 1 for a win. However, the values can double if the player decides to double down.
         """
         reward: float = 0
-        self.house_hand.finish(self.deck)
+        self.dealer_hand.finish(self.deck)
         if self.player_hand.value > 21:
             reward = -1 * self.player_hand.reward
 
-        elif self.house_hand.value > 21:
+        elif self.dealer_hand.value > 21:
             reward = self.player_hand.reward
 
-        elif self.player_hand.value > self.house_hand.value:
+        elif self.player_hand.value > self.dealer_hand.value:
             reward = self.player_hand.reward
 
-        elif self.player_hand.value < self.house_hand.value:
+        elif self.player_hand.value < self.dealer_hand.value:
             reward = -1 * self.player_hand.reward
 
         return reward

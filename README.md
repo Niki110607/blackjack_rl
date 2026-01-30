@@ -43,6 +43,11 @@ The following plot illustrates the convergence of the model and the evolution of
 ### **Learned Strategy Tables**
 These tables represent the agent's "brain"—the optimal moves calculated for every possible hand combination. They show that the agent has succesfully learned the most imprtant Blackjack strategies and the tables are nearly identical to statistical calculations.
 
-| Hard Totals | Soft Totals | Pairs |
-| :---: | :---: | :---: |
-| ![Hard Totals](training/plots/hard_hands.png) | ![Soft Totals](training/plots/soft_hands.png) | ![Pairs](training/plots/splittable_hands.png) |
+### Hard Totals
+![Hard Totals](training/plots/hard_hands.png)
+
+### Soft Totals
+![Soft Totals](training/plots/soft_hands.png)
+
+### Pairs
+![Pairs](training/plots/splittable_hands.png)

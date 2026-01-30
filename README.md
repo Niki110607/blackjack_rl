@@ -2,7 +2,9 @@
 
 A fullstack Reinforcement Learning project featuring a **Deep Q-Network (DQN)** agent trained to play Blackjack optimally. This project includes a custom-built environment, a high-performance backend, and a web-based UI.
 
-**Website:** [https://blackjack-rl-agent.streamlit.app](https://blackjack-rl-agent.streamlit.app)
+**Website:** [https://blackjack-rl-agent.streamlit.app](https://blackjack-rl-agent.streamlit.app) 
+
+(Since i am using free hosting options it is possible that the front- and backend are offline at the moment and will take around 1 minute to start up.)
 
 ---
 

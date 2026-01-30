@@ -17,7 +17,7 @@ A fullstack Reinforcement Learning project featuring a **Deep Q-Network (DQN)** 
 
 ## **Agent & Environment**
 
-* **Custom Environment:** A Gymnasium inspired Blackjack environment with the two additional moves double and split, allowing for specific reward shaping and state representation tailored for DQN training.
+* **Custom Environment:** A Gymnasium inspired Blackjack environment with the two additional moves double and split, allowing for specific reward shaping and state representation tailored for DQN training. It is important to mention that the ruleset of the environmetn ensures that every hand is played with a single reshuffled deck, the dealer stands on a soft 17 and the natural blackjack payout is 3:2.
 * **DQN Agent:** Implements a Deep Q-Network with experience replay and a target network to stabilize training. The agent learns the optimal action by interacting with the custom environment.
 
 ---
@@ -42,6 +42,11 @@ The following plot illustrates the convergence of the model and the evolution of
 
 ### **Learned Strategy Tables**
 These tables represent the agent's "brain"—the optimal moves calculated for every possible hand combination. They show that the agent has succesfully learned the most imprtant Blackjack strategies and the tables are nearly identical to statistical calculations.
+The letters in the tables correlate to the moves:
+* **S:** Stand
+* **H:** Hit
+* **D:** Double
+* **P:** Split
 
 ### Hard Totals
 ![Hard Totals](training/plots/hard_hands.png)
